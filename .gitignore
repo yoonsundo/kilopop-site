@@ -1,0 +1,12 @@
+# 빌드 결과
+dist/
+.DS_Store
+node_modules/
+.vercel
+
+# 시안 HTML·캡처·원본 사진·핀터레스트 비교 자료 (로컬 작업 자료, 공개하지 않음)
+design/
+
+# 로컬 도구 설정·상태
+.claude/
+.omc/

@@ -1,0 +1,45 @@
+{
+ "steps": [
+  {
+   "goto": "https://runshot-omega.vercel.app/",
+   "wait": 3500
+  },
+  {
+   "shot": "01-home.png"
+  },
+  {
+   "eval": "(() => { const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('기록 입력')); b.click(); return 'ok'; })()",
+   "wait": 1200
+  },
+  {
+   "eval": "(() => { const set=(el,v)=>{const d=Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el),'value'); d.set.call(el,v); el.dispatchEvent(new Event('input',{bubbles:true})); el.dispatchEvent(new Event('change',{bubbles:true}));}; set(document.getElementById('f-distance'),'10.02'); set(document.getElementById('f-duration'),'52:31'); document.activeElement && document.activeElement.blur(); return 'filled'; })()",
+   "print": true,
+   "label": "fill",
+   "wait": 900
+  },
+  {
+   "shot": "02-record.png"
+  },
+  {
+   "eval": "(() => { const b=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('사진 고르러')); b.click(); return 'ok'; })()",
+   "wait": 1500
+  },
+  {
+   "shot": "03-photo.png"
+  },
+  {
+   "eval": "(() => { const b=[...document.querySelectorAll('button')].find(x=>(x.getAttribute('aria-label')||x.textContent).includes('강변 야간')); b.click(); return 'ok'; })()",
+   "wait": 3500
+  },
+  {
+   "shot": "04-editor.png"
+  },
+  {
+   "eval": "(() => { [...document.querySelectorAll('button')].find(x=>x.textContent.includes('저장하기')).click(); return 'ok'; })()",
+   "wait": 4000
+  },
+  {
+   "shot": "05-save.png"
+  }
+ ]
+}

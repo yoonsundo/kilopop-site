@@ -1,0 +1,17 @@
+{
+  "name": "kilopop-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "킬로팝(Kilopop) 소개 사이트. 사진 위에 러닝 기록을 얹어 인스타 스토리용 인증샷을 만드는 무료 웹앱",
+  "type": "module",
+  "engines": { "node": "24.x" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node scripts/build.mjs && node scripts/check.mjs",
+    "serve": "python3 -m http.server 5311 --directory dist",
+    "perf": "node scripts/perf.mjs",
+    "og": "node scripts/og.mjs",
+    "indexnow": "node scripts/indexnow.mjs"
+  }
+}

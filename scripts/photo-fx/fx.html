@@ -1,0 +1,63 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>photo fx</title>
+<script>
+// 사진 가공: cover 자르기 → 가로 움직임 번짐(가운데는 선명하게 남길 수 있음) → 단색(듀오톤) 또는 채도 낮추기.
+// window.fx(opts)가 JPEG data URL을 돌려준다. scripts/photo-fx/run.mjs가 headless Chrome에서 부른다.
+function load(src){return new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=src;});}
+function hex(h){h=h.replace('#','');return[0,2,4].map(i=>parseInt(h.slice(i,i+2),16));}
+function cover(img,w,h,fx=.5,fy=.5,zoom=1){
+  const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');
+  x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';
+  const s=Math.max(w/img.width,h/img.height)*zoom, dw=img.width*s, dh=img.height*s;
+  x.drawImage(img,(w-dw)*fx,(h-dh)*fy,dw,dh);return c;
+}
+function motion(src,dist,steps){
+  const c=document.createElement('canvas');c.width=src.width;c.height=src.height;const x=c.getContext('2d');
+  // 원본을 먼저 깔아 가장자리가 비지 않게 하고, 그 위에 밀린 사본을 평균한다
+  x.drawImage(src,0,0);
+  for(let i=0;i<steps;i++){const t=steps===1?0:i/(steps-1)-.5;x.globalAlpha=1/(i+2);x.drawImage(src,t*dist,0);}
+  x.globalAlpha=1;return c;
+}
+function mask(sharp,blurred,cx,cw,soft){
+  // 가로 방향으로 가운데 띠만 선명하게 남긴다
+  const c=document.createElement('canvas');c.width=sharp.width;c.height=sharp.height;const x=c.getContext('2d');
+  x.drawImage(blurred,0,0);
+  const m=document.createElement('canvas');m.width=c.width;m.height=c.height;const mx=m.getContext('2d');
+  mx.drawImage(sharp,0,0);mx.globalCompositeOperation='destination-in';
+  const g=mx.createLinearGradient(0,0,c.width,0),a=cx-cw/2,b=cx+cw/2;
+  g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(Math.max(0,a-soft),'rgba(0,0,0,0)');g.addColorStop(Math.max(0,a),'rgba(0,0,0,1)');
+  g.addColorStop(Math.min(1,b),'rgba(0,0,0,1)');g.addColorStop(Math.min(1,b+soft),'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,0)');
+  mx.fillStyle=g;mx.fillRect(0,0,m.width,m.height);x.drawImage(m,0,0);return c;
+}
+function tone(c,o){
+  const x=c.getContext('2d'),d=x.getImageData(0,0,c.width,c.height),p=d.data;
+  const stops=(o.ramp||[]).map(hex), sat=o.sat??1, bright=o.bright??1, contrast=o.contrast??1;
+  for(let i=0;i<p.length;i+=4){
+    let r=p[i],g=p[i+1],b=p[i+2];let L=(.2126*r+.7152*g+.0722*b)/255;
+    L=Math.min(1,Math.max(0,((L-.5)*contrast+.5)*bright));
+    if(stops.length){
+      const t=L*(stops.length-1),k=Math.min(stops.length-2,Math.floor(t)),f=t-k;
+      r=stops[k][0]+(stops[k+1][0]-stops[k][0])*f;g=stops[k][1]+(stops[k+1][1]-stops[k][1])*f;b=stops[k][2]+(stops[k+1][2]-stops[k][2])*f;
+    }else{
+      const Y=L*255;r=Y+(r*bright-Y)*sat;g=Y+(g*bright-Y)*sat;b=Y+(b*bright-Y)*sat;
+    }
+    p[i]=r;p[i+1]=g;p[i+2]=b;
+  }
+  x.putImageData(d,0,0);return c;
+}
+function grain(c,amt){
+  const x=c.getContext('2d'),d=x.getImageData(0,0,c.width,c.height),p=d.data;
+  for(let i=0;i<p.length;i+=4){const n=(Math.random()-.5)*amt;p[i]+=n;p[i+1]+=n;p[i+2]+=n;}
+  x.putImageData(d,0,0);return c;
+}
+window.fx=async function(o){
+  const img=await load(o.src);
+  const base=cover(img,o.w,o.h,o.fx??.5,o.fy??.5,o.zoom??1);
+  let out=base;
+  if(o.blur){const bl=motion(base,o.blur,o.steps||28);out=o.keep?mask(base,bl,o.keep.cx,o.keep.cw,o.keep.soft||.12):bl;}
+  if(o.ramp||o.sat!==undefined||o.bright||o.contrast)out=tone(out,o);
+  if(o.grain)out=grain(out,o.grain);
+  return out.toDataURL(o.type||'image/jpeg',o.q||.82);
+};
+</script>
