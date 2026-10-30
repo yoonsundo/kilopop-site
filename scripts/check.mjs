@@ -144,6 +144,12 @@ if (!existsSync(join(DIST, 'llms.txt'))) fail('llms.txt', '없음');
 if (!existsSync(join(DIST, `${config.indexNowKey}.txt`))) fail('IndexNow', '키 파일 없음');
 else if (readFileSync(join(DIST, `${config.indexNowKey}.txt`), 'utf8').trim() !== config.indexNowKey) fail('IndexNow', '키 파일 내용이 키와 다름');
 for (const f of ['og.jpg', 'favicon.ico', 'icons/apple-touch-icon.png']) if (!existsSync(join(DIST, f))) fail(f, '없음');
+// 옛 주소의 앱 서비스 워커 해제 파일: 있어야 하고, 랜딩은 이 파일을 등록하면 안 된다(옛 워커의 갱신 확인으로만 받는다)
+if (!existsSync(join(DIST, 'sw.js'))) fail('sw.js', '옛 앱 서비스 워커 해제 파일 없음');
+else if (!/registration\.unregister\(\)/.test(readFileSync(join(DIST, 'sw.js'), 'utf8'))) fail('sw.js', '해제 코드가 없음');
+for (const f of files.filter(f => /\.(html|js)$/.test(f) && !f.endsWith('/sw.js'))) {
+  if (/serviceWorker\s*\.\s*register/.test(readFileSync(f, 'utf8'))) fail(relative(DIST, f), '서비스 워커를 등록함(해제 파일을 등록하면 안 됨)');
+}
 
 if (fails.length) { console.error(`검사 실패 ${fails.length}건\n- ` + fails.join('\n- ')); process.exit(1); }
 console.log(`검사 통과: 페이지 ${pages.size}개, 파일 ${files.length}개`);
