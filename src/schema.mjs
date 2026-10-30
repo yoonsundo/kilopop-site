@@ -1,4 +1,5 @@
 // 구조화 데이터(JSON-LD). 화면에 보이는 내용만 넣고, 평점처럼 근거 없는 값은 넣지 않는다.
+import { josa } from './josa.mjs';
 
 export function graph(nodes) {
   return { '@context': 'https://schema.org', '@graph': nodes };
@@ -7,9 +8,12 @@ export function graph(nodes) {
 export function siteNodes(c) {
   return [
     { '@type': 'Organization', '@id': `${c.url}/#org`, name: c.nameKo, alternateName: [c.nameEn, c.nameEn.toUpperCase()],
+      // 같은 철자의 다른 서비스와 헷갈리지 않게 무엇을 하는 곳인지 함께 밝힌다
+      description: `${c.descriptor} 웹앱 ${josa(c.nameKo, '을')} 만드는 한국의 1인 프로젝트`,
+      disambiguatingDescription: `한국어로 쓰는 무료 ${c.descriptor} 웹앱. 같은 철자를 쓰는 다른 나라의 피트니스·식단 서비스와는 관련이 없다.`,
       url: `${c.url}/`, logo: { '@type': 'ImageObject', url: `${c.url}/icons/icon-512.png`, width: 512, height: 512 },
       sameAs: [c.repoUrl] },
-    { '@type': 'WebSite', '@id': `${c.url}/#website`, url: `${c.url}/`, name: c.nameKo, alternateName: c.nameEn,
+    { '@type': 'WebSite', '@id': `${c.url}/#website`, url: `${c.url}/`, name: c.nameKo, alternateName: [c.nameEn, `${c.nameKo} ${c.descriptor}`],
       inLanguage: 'ko-KR', publisher: { '@id': `${c.url}/#org` } },
   ];
 }
@@ -18,7 +22,8 @@ export function appNode(c, { templates, steps }) {
   return {
     '@type': 'WebApplication', '@id': `${c.url}/#app`, name: c.nameKo, alternateName: c.nameEn, url: c.appUrl,
     description: `사진 위에 러닝 기록을 얹어 인스타그램 스토리용 인증샷(1080×1920)을 만드는 무료 웹앱`,
-    applicationCategory: 'MultimediaApplication', applicationSubCategory: '러닝 인증샷',
+    disambiguatingDescription: `한국어로 쓰는 ${c.descriptor} 웹앱. 같은 철자를 쓰는 다른 나라의 피트니스·식단 서비스와는 관련이 없다.`,
+    applicationCategory: 'MultimediaApplication', applicationSubCategory: c.descriptor,
     operatingSystem: '웹 브라우저', browserRequirements: 'iPhone Safari에서 저장까지 확인함. Android Chrome은 실기기 확인 전',
     inLanguage: 'ko-KR', isAccessibleForFree: true,
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },

@@ -68,12 +68,13 @@ Sitemap: ${c.url}/sitemap.xml
 `);
 
 // llms.txt: 구글은 쓰지 않는다고 밝혔지만 다른 AI 서비스가 읽을 수 있어 둔다
-writeFileSync(join(dist, 'llms.txt'), `# ${c.nameKo} (${c.nameEn})
+writeFileSync(join(dist, 'llms.txt'), `# ${c.nameKo}(${c.nameEn}) ${c.descriptor} 웹앱
 
 > ${josa(c.nameKo, '은')} 사진 위에 러닝 기록을 얹어 인스타그램 스토리용 인증샷(1080×1920, 9:16 JPEG)을 만드는 무료 모바일 웹앱이다. 설치와 로그인이 없고, 사진과 기록을 서버로 보내지 않는다.
 
 ## 핵심 사실
 
+- 구분: 한국어로 쓰는 ${c.descriptor} 웹앱이다. [소개 사이트](${c.url}/)와 [웹앱](${c.appUrl})을 따로 둔다.${c.disambiguation ? ' ' + c.disambiguation : ''}
 - 쓰는 법: 거리와 시간 입력(평균 페이스 자동 계산) → 사진 고르기 → 템플릿 고르기 → '저장하기' → 저장 화면의 '사진 앱에 저장'(공유 시트에서 '이미지 저장')
 - 템플릿 ${templates.length}종: ${templates.map(t => `${t.name}(${t.line})`).join(', ')}
 - 브라우저: iPhone Safari에서 저장까지 확인했다. Android Chrome에서도 열리지만 실기기 저장 확인은 아직 하지 않았다. 홈 화면에 추가해 앱처럼 쓰고, 한 번 연 뒤에는 오프라인에서도 열린다

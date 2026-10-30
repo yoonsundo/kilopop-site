@@ -1,6 +1,8 @@
 {
   "nameKo": "킬로팝",
   "nameEn": "Kilopop",
+  "descriptor": "러닝 인증샷",
+  "disambiguation": "같은 철자를 쓰는 스페인 피트니스·식단 서비스 KiloPop(kilopop.com)과는 관련이 없다.",
   "url": "https://kilopop.thundo.kr",
   "appUrl": "https://app.kilopop.thundo.kr/",
   "repoUrl": "https://github.com/yoonsundo/kilopop-site",

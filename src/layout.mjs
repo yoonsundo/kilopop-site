@@ -47,7 +47,7 @@ ${p.noindex ? '' : `<link rel="canonical" href="${esc(url)}">`}
 <meta name="color-scheme" content="dark">
 <meta name="format-detection" content="telephone=no">
 <meta property="og:type" content="${p.ogType || 'website'}">
-<meta property="og:site_name" content="${esc(c.nameKo)}">
+<meta property="og:site_name" content="${esc(`${c.nameKo} ${c.descriptor}`)}">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:title" content="${esc(p.ogTitle || p.title)}">
 <meta property="og:description" content="${esc(p.description)}">
