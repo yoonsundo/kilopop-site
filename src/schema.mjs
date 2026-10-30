@@ -19,7 +19,7 @@ export function appNode(c, { templates, steps }) {
     '@type': 'WebApplication', '@id': `${c.url}/#app`, name: c.nameKo, alternateName: c.nameEn, url: c.appUrl,
     description: `사진 위에 러닝 기록을 얹어 인스타그램 스토리용 인증샷(1080×1920)을 만드는 무료 웹앱`,
     applicationCategory: 'MultimediaApplication', applicationSubCategory: '러닝 인증샷',
-    operatingSystem: '웹 브라우저 (iOS, Android)', browserRequirements: 'iPhone Safari 또는 Android Chrome',
+    operatingSystem: '웹 브라우저', browserRequirements: 'iPhone Safari에서 저장까지 확인함. Android Chrome은 실기기 확인 전',
     inLanguage: 'ko-KR', isAccessibleForFree: true,
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
     featureList: [

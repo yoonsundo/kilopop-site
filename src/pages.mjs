@@ -140,7 +140,7 @@ ${faq.map(f => `      <div><h3 class="q">${esc(fill(f.q))}</h3><p>${esc(fill(f.a
       { '@type': 'HowTo', '@id': `${c.url}${gPath}#howto`, name: '사진에 러닝 기록 넣어 러닝 인증샷 만드는 법', description: '사진 위에 러닝 기록을 얹어 1080×1920 인스타 스토리용 인증샷을 만든다.',
         inLanguage: 'ko-KR', image: `${c.url}/img/screen-editor-lg.jpg`,
         supply: [{ '@type': 'HowToSupply', name: '러닝 기록(거리와 시간)' }, { '@type': 'HowToSupply', name: '사진 한 장' }],
-        tool: [{ '@type': 'HowToTool', name: `${c.nameKo} 웹앱 (iPhone Safari 또는 Android Chrome)` }],
+        tool: [{ '@type': 'HowToTool', name: `${c.nameKo} 웹앱 (iPhone Safari)` }],
         step: steps.map((s, i) => ({ '@type': 'HowToStep', position: i + 1, name: s.name, url: `${c.url}${gPath}#${s.id}`,
           text: s.body.join(' '), image: `${c.url}/img/${s.img}-lg.jpg` })) },
       breadcrumb(c, [{ name: '홈', path: '/' }, { name: gH1, path: gPath }]),
@@ -173,7 +173,7 @@ ${steps.map((s, i) => `        <li><a href="#${s.id}">${i + 1}단계 · ${esc(s.
       <ul class="dots">
         <li>오늘 달린 기록: 거리와 시간 두 숫자면 돼요. 평균 페이스는 자동으로 계산해요.</li>
         <li>사진 한 장: 없으면 샘플 사진으로 먼저 둘러봐도 돼요.</li>
-        <li>아이폰 Safari 또는 안드로이드 Chrome: 따로 설치할 앱은 없어요. <a href="${app}">${ko} 열기</a></li>
+        <li>아이폰 Safari: 따로 설치할 앱은 없어요(<a href="${app}">${ko} 열기</a>). 안드로이드 Chrome에서도 열리지만, 실제 기기에서 저장까지 해 보는 확인은 아직 끝나지 않았어요.</li>
       </ul>
     </section>
 
