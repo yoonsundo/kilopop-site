@@ -33,8 +33,7 @@ export function page(c, a, p) {
   const robots = p.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
   const verify = [
     c.googleVerification && `<meta name="google-site-verification" content="${esc(c.googleVerification)}">`,
-    c.naverVerification && `<meta name="naver-site-verification" content="${esc(c.naverVerification)}">`,
-  ].filter(Boolean).join('\n');
+    c.naverVerification && `<meta name="naver-site-verification" content="${esc(c.naverVerification)}">`,  ].filter(Boolean).join('\n');
   return `<!doctype html>
 <html lang="ko">
 <head>
