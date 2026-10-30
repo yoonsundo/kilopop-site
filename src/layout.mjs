@@ -21,6 +21,7 @@ export function navBar(c) {
 export function footer(c) {
   return `<footer class="foot">
   <nav class="micro" aria-label="바닥글"><a href="/guide/running-photo/">러닝 인증샷 만드는 법</a><a href="/templates/">템플릿</a><a href="/#faq">자주 묻는 질문</a><a href="/privacy/">개인정보 처리방침</a><a href="${esc(c.repoUrl)}" target="_blank" rel="noopener">GitHub</a></nav>
+  <p>${esc(josa(c.nameKo, '은'))} 한국어로 쓰는 ${esc(c.descriptor)} 웹앱이에요. 같은 철자를 쓰는 다른 나라의 피트니스·식단 서비스와는 관련이 없어요.</p>
   <p>나이키 런 클럽, 가민, 스트라바는 각 회사의 상표이며 ${esc(josa(c.nameKo, '과'))} 관련이 없어요. 예시 사진은 AI로 만든 이미지이고, 실제로는 내 사진이 들어가요.</p>
   <p class="micro">© ${new Date().getFullYear()} ${esc(c.nameKo)} · ${esc(c.nameEn.toUpperCase())}</p>
 </footer>`;

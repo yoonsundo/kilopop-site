@@ -1,4 +1,4 @@
-// 구조화 데이터(JSON-LD). 화면에 보이는 내용만 넣고, 평점처럼 근거 없는 값은 넣지 않는다.
+// 구조화 데이터(JSON-LD). 화면에 보이는 내용만 넣고(구분 설명은 바닥글에 보임), 평점처럼 근거 없는 값은 넣지 않는다.
 import { josa } from './josa.mjs';
 
 export function graph(nodes) {
