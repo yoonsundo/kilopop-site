@@ -9,7 +9,7 @@
 킬로팝은 거리와 시간을 넣고 사진을 고르면 인스타 스토리용 러닝 인증샷(1080×1920)을 만들어 주는 무료 웹앱이에요.<br/>
 이 레포는 그 앱을 소개하는 사이트예요. 설치도 로그인도 없이 바로 써 보세요.
 
-[웹앱 열기](https://runshot-omega.vercel.app/) · [러닝 인증샷 만드는 법](https://kilopop.thundo.kr/guide/running-photo/) · [템플릿 4종](https://kilopop.thundo.kr/templates/)
+[웹앱 열기](https://app.kilopop.thundo.kr/) · [러닝 인증샷 만드는 법](https://kilopop.thundo.kr/guide/running-photo/) · [템플릿 4종](https://kilopop.thundo.kr/templates/)
 
 <br/>
 
@@ -81,7 +81,7 @@ npm run perf      # 모바일 성능·접근성 측정 (serve를 먼저 띄운 �
 
 이름(킬로팝/Kilopop), 사이트 주소, 앱 주소, 레포 주소는 `site.config.json` 한 곳에 있어요. 이름 뒤 조사(은/는, 이/가)는 받침에 맞춰 자동으로 골라요. 바꾼 뒤 `npm test`로 다시 빌드하고, 공유 이미지에 이름이 들어가므로 `npm run og`도 실행해요. Vercel에서는 운영 주소(`VERCEL_PROJECT_PRODUCTION_URL`)를 자동으로 읽어 canonical과 사이트맵에 써요.
 
-주소 배치는 소개 사이트가 `kilopop.thundo.kr`, 웹앱이 `app.kilopop.thundo.kr`이에요. 웹앱 주소가 열리기 전까지 `appUrl`은 시험 주소(`runshot-omega.vercel.app`)를 가리켜요.
+주소 배치는 소개 사이트가 `kilopop.thundo.kr`, 웹앱이 `app.kilopop.thundo.kr`이에요. 예전에 `kilopop.thundo.kr`에서 앱을 연 기기에 남은 앱 서비스 워커는 `public/sw.js`가 지워 줘요(이 사이트는 그 파일을 등록하지 않아요).
 
 ## 배포
 
